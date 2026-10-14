@@ -20,7 +20,6 @@ The results are exported to a structured CSV file for further investigation, thr
 - **Optional jitter:** Adds randomized variation to lookup intervals.
 - **Result deduplication:** Merges domains discovered by both tools while preserving their typo-generation classifications.
 - **CSV reporting:** Produces a four-column report suitable for spreadsheets and further analysis.
-- **Kali Linux support:** Designed around a Kali Linux installation, with configurable paths for external tools.
 
 ## Table of Contents
 
@@ -119,13 +118,7 @@ Some networks block outbound WHOIS connections. In these environments, RDAP may 
 
 ## Installation
 
-### Step 1: Update Kali Linux
-
-```bash
-sudo apt update
-```
-
-### Step 2: Install system dependencies
+### Install system dependencies
 
 ```bash
 sudo apt install -y \
@@ -134,42 +127,45 @@ sudo apt install -y \
     python3-tldextract \
     whois \
     dnstwist \
-    ruby
+    ruby \
+    ruby-dev \
+    build-essential
 ```
 
 Ruby is included because URLCrazy is implemented in Ruby.
 
 Depending on the URLCrazy version and its dependencies, additional Ruby gems may be required. Follow the installation instructions in the upstream URLCrazy repository if it reports missing dependencies.
 
-### Step 3: Install URLCrazy
-
-The script expects URLCrazy to be installed at:
-
-`/opt/urlcrazy/urlcrazy`
+### Install URLCrazy
 
 Clone the upstream repository:
 
 ```bash
-sudo git clone \
-    https://github.com/urbanadventurer/urlcrazy.git \
-    /opt/urlcrazy
+sudo git clone https://github.com/urbanadventurer/urlcrazy.git 
 ```
 
-Make the executable runnable:
+Install Bundler and Dependencies
 
 ```bash
-sudo chmod +x /opt/urlcrazy/urlcrazy
+gem install bundler
+bundle install
+```
+
+Alternatively, if you don't want to install bundler, the following command will install the gem dependencies:
+
+```bash
+gem install json colorize async async-dns async-http
 ```
 
 Verify the installation:
 
 ```bash
-/opt/urlcrazy/urlcrazy --help
+./urlcrazy --help
 ```
 
 If URLCrazy reports missing Ruby gems, consult its upstream README and install the dependencies required by that version.
 
-### Step 4: Download Proper_Squat
+### Download Proper_Squat
 
 Clone your Proper_Squat GitHub repository:
 
@@ -180,7 +176,7 @@ cd Proper_Squat
 
 Alternatively, download `Proper_Squat.py` directly and place it in your preferred working directory.
 
-### Step 5: Verify dependencies
+### Verify dependencies
 
 Confirm the installed tool locations:
 
@@ -847,12 +843,6 @@ Proper_Squat builds on the capabilities and public infrastructure provided by:
 - [RDAP](https://www.rfc-editor.org/rfc/rfc9082.html) — Structured domain registration data access.
 
 Proper_Squat is an independent wrapper and enrichment tool. It is not affiliated with or endorsed by these projects or organizations.
-
-## License
-
-A license has not yet been specified for this repository.
-
-Before publishing, add a `LICENSE` file identifying the terms under which Proper_Squat may be used, modified, and distributed. Review the licenses of the external tools separately.
 
 ---
 
