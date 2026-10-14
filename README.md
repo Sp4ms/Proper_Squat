@@ -36,7 +36,6 @@ The results are exported to a structured CSV file for further investigation, thr
 11. [Security Use Cases](#security-use-cases)
 12. [Responsible Use](#responsible-use)
 13. [Acknowledgments](#acknowledgments)
-14. [License](#license)
 
 ---
 
